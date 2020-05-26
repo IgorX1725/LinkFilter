@@ -14,9 +14,9 @@ import java.io.IOException
         request.GET(url,authorization, object : Callback {
             override fun onResponse(call: Call?, response: Response) {
                 val responseData = response.body()?.string()
-                val jsonArray = JSONObject(responseData)
+                val jsonObject = JSONObject(responseData)
 
-                var catLinks = GetLinks.get(jsonArray)
+                var catLinks = GetLinks.get(jsonObject)
                 catLinks.forEach({
                     println(it)
                   })

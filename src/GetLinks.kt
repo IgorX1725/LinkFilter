@@ -11,13 +11,18 @@ class GetLinks {
             var jsonArray = jsonObject.getJSONArray("data")
 
             jsonArray.forEach({
-                var imagesArray = JSONObject(it.toString()).getJSONArray("images")
-                imagesArray.forEach({
-                    var link = JSONObject(it.toString()).get("link").toString()
-                    if (!link.contains(".mp4")) {
-                        catsLinks.add(link)
-                    }
-                })
+                var imagesObject = JSONObject(it.toString())
+                if(imagesObject.has("images")) {
+                    var imagesArray = imagesObject.getJSONArray("images")
+                    imagesArray.forEach({
+                        if (JSONObject(it.toString()).get("type").toString().contains("image")) {
+                            if(JSONObject(it.toString()).get("link").toString().isNotEmpty()) {
+                                var link = JSONObject(it.toString()).get("link").toString()
+                                catsLinks.add(link)
+                            }
+                        }
+                    })
+                }
             })
             return catsLinks
         }
